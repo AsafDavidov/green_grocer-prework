@@ -16,30 +16,30 @@ end
 
 def apply_coupons(cart, coupons)
   if coupons != nil
-  # code here
-  couponed_cart = {}
-  cart.each do |cart_item|
-    coupons.each do |each_coupon|
-      if cart_item[0] == each_coupon[:item]
-        #binding.pry
-        cart_item[1][:count] = cart_item[1][:count] - each_coupon[:num]
-        
-        couponed_cart[cart_item[0]] = cart_item[1]
-        if couponed_cart["#{cart_item[0]} W/COUPON"] == nil
-          couponed_cart["#{cart_item[0]} W/COUPON"] = {
-            :price => each_coupon[:cost],
-            :clearance => cart_item[1][:clearance],
-            :count => 1
-          }
+    # code here
+    couponed_cart = {}
+    cart.each do |cart_item|
+      coupons.each do |each_coupon|
+        if cart_item[0] == each_coupon[:item]
+          #binding.pry
+          cart_item[1][:count] = cart_item[1][:count] - each_coupon[:num]
+          
+          couponed_cart[cart_item[0]] = cart_item[1]
+          if couponed_cart["#{cart_item[0]} W/COUPON"] == nil
+            couponed_cart["#{cart_item[0]} W/COUPON"] = {
+              :price => each_coupon[:cost],
+              :clearance => cart_item[1][:clearance],
+              :count => 1
+            }
+          else
+            couponed_cart["#{cart_item[0]} W/COUPON"][:count] = couponed_cart["#{cart_item[0]} W/COUPON"][:count] + 1
+          end
         else
-          couponed_cart["#{cart_item[0]} W/COUPON"][:count] = couponed_cart["#{cart_item[0]} W/COUPON"][:count] + 1
+          couponed_cart[cart_item[0]] = cart_item[1]
         end
-      else
-        couponed_cart[cart_item[0]] = cart_item[1]
       end
     end
-  end
-  couponed_cart
+    couponed_cart
 end
 
 def apply_clearance(cart)
