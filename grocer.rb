@@ -15,6 +15,7 @@ end
 
 
 def apply_coupons(cart, coupons)
+  if coupons != nil
   # code here
   couponed_cart = {}
   cart.each do |cart_item|
